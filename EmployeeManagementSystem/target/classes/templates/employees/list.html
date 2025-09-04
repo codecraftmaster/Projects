@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employees List</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<h1>Employees</h1>
+
+<a th:href="@{/employees/new}">➕ Add New Employee</a>
+<br><br>
+
+<table border="1" cellpadding="8">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.id}"></td>
+			<td th:text="${employee.firstName} + ' ' + ${employee.lastName}"></td>
+			<td th:text="'N/A'"></td> <!-- use this if you don't have a department field in your entity -->
+			<td th:text="${employee.email}"></td>
+            <td>
+                <a th:href="@{|/employees/${employee.id}|}">View</a> |
+                <a th:href="@{|/employees/${employee.id}/edit|}">Edit</a> |
+                <form th:action="@{|/employees/${employee.id}/delete|}" method="post" style="display:inline">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>
